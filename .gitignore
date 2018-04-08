@@ -1,0 +1,5 @@
+*.iml
+spark/.idea/
+hive/hive-udf/.idea/
+hive/hive-udf/target/
+hive/.idea/
