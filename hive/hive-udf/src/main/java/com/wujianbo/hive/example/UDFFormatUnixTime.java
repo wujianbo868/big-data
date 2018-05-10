@@ -2,8 +2,10 @@ package com.wujianbo.hive.example;
 
 import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDF;
+import org.apache.hadoop.hive.ql.udf.generic.GenericUDF;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import sun.net.www.content.text.Generic;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +18,7 @@ import java.util.Date;
         value = "_FUNC_(unix_time) - returns unix_time in the 'yyyy-MM-dd HH:mm:ss' format, '0' for null or 0.",
         extended = "SELECT _FUNC_(1474300862) limit 1"
 )
-public class UDFFormatUnixTime extends UDF {
+public class UDFFormatUnixTime extends GenericUDF {
     private SimpleDateFormat formatter;
 
     private Text result = new Text();

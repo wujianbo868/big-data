@@ -1,0 +1,18 @@
+测试初始化文件
+
+
+创建一张map结构的表数据
+create table test_people_movie(
+name string,
+movie map<string,string> )
+row format delimited fields terminated by "\t"
+collection items terminated by ","
+map keys terminated by ":";
+
+create table if not exists test_hobby
+(
+h_id int,
+type string,
+name string
+)
+stored orc;
