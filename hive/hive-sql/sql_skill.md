@@ -58,7 +58,7 @@ select regexp_extract('http://www.alibaba.com?test1=123&id=111&ord=555', '&id=(\
 select regexp_extract('foothebar', 'foo(.*?)(bar)', 1) --输出：the
 ```
 
-####多列转多行
+####多列转多行--【列转行】
 方法：先将结果值拼接成字符串，而后使用trans_array(num, splitor, col1, col2, ..., coln )函数，将第num个之后的所有列（col1往后数）拆成多行，可配合bi_group_concat_order做拼接
 ``` 
 select trans_array(0, ',', 列名, 值) as (列, 值)
@@ -74,6 +74,11 @@ from (
         from dual
     ) a
 ) t
+```
+
+####列转单行
+``` 
+select name,concat_ws(',',collect_set(concat(subject,'=',score))) from student group by name;
 ```
 
 ####一批数据随机抽3000条做样本
