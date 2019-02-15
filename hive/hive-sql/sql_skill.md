@@ -58,6 +58,14 @@ select regexp_extract('http://www.alibaba.com?test1=123&id=111&ord=555', '&id=(\
 select regexp_extract('foothebar', 'foo(.*?)(bar)', 1) --输出：the
 ```
 
+####正则匹配中文的问题
+``` 
+--hive匹配中文
+select '我们来了' regexp "[\\x{4e00}-\\x{9fa5}]{3,}";
+--替换中文为空
+select regexp_replace('我们来了1234','[\\x{4e00}-\\x{9fa5}]','');
+```
+
 ####多列转多行--【列转行】
 方法：先将结果值拼接成字符串，而后使用trans_array(num, splitor, col1, col2, ..., coln )函数，将第num个之后的所有列（col1往后数）拆成多行，可配合bi_group_concat_order做拼接
 ``` 
