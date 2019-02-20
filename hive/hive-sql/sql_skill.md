@@ -140,6 +140,26 @@ select cust_id, gmv_amt, prod_cnt from d; //输出
 ####使用参数化视图让SQL抽象成类似函数一样简洁【定制版，不展开，仅提供思路】
 方法：语法create view if not exists pv1(@a table (k string,v bigint), @b string), 参数可以是任意表或者其他变量
 
+举个具体的例子
+``` 
+--统计1/7/15天内登录成功的账号数
+--尝试一下使用两个变量
+drop view if exists v_login_count;
+create view if not exists v_login_count(@param string,@param2 string) as
+select 
+        logintype_detail
+        ,count(distinct ytid) as login_suc_num
+from xx.xx1
+where dt <= @param2
+and dt > @param
+and exception_code = 'SUCCESS'
+group by logintype_detail;
+
+--具体使用
+select * 
+from v_login_count('${date_1}','${bizdate}');
+```
+
 ####同一张表，多种聚合条件（类似group by 1,2,3 + group by 1,2 + group by 1,3），然后将结果合并在一起
 方法：使用grouping sets实现多个聚合条件，SQL只跑一次，减少耗时
 ``` 
